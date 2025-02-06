@@ -12,5 +12,4 @@ services:
   region: oregon
   buildCommand: npm install
   startCommand: npm run start
-  rootDir: /
 version: "1"
