@@ -1,0 +1,36 @@
+### List all playlists
+GET http://localhost:8080/playlists
+
+###
+
+### Get playlist by id
+GET http://localhost:8080/playlists/67a43c103f04a11140235598
+
+###
+
+### Create a new playlist
+# @name create_resource
+POST http://localhost:8080/playlists HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Comedy Series - 2000-2010",
+    "type":"series",
+    "owner":"Glaucio"
+}
+
+###
+
+
+### Updating the added resource
+PUT http://localhost:8080/playlists/67a43c103f04a11140235598 HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Best Brazilian Movies - 2000-2020",
+    "type":"movies",
+    "owner":"Melissa"
+}
+
+### DELETE the added resource
+DELETE http://localhost:8080/playlists/67a43c103f04a11140235598 HTTP/1.1

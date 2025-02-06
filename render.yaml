@@ -1,0 +1,16 @@
+services:
+- type: web
+  name: cse341-project
+  runtime: node
+  repo: https://github.com/GlaucioOliveira/cse341-project
+  plan: free
+  envVars:
+  - key: MONGO_URI
+    sync: false
+  - key: PORT
+    sync: false
+  region: oregon
+  buildCommand: npm install
+  startCommand: npm run start
+  rootDir: /
+version: "1"
