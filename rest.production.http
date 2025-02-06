@@ -1,16 +1,16 @@
 ### List all playlists
-GET https://cse341-fetp.onrender.com/playlists
+GET https://cse341-project-yrv7.onrender.com/playlists
 
 ###
 
 ### Get playlist by id
-GET https://cse341-fetp.onrender.com/playlists/67a43c103f04a11140235598
+GET https://cse341-project-yrv7.onrender.com/playlists/67a43c103f04a11140235598
 
 ###
 
 ### Create a new playlist
 # @name create_resource
-POST https://cse341-fetp.onrender.com/playlists HTTP/1.1
+POST https://cse341-project-yrv7.onrender.com/playlists HTTP/1.1
 content-type: application/json
 
 {
@@ -23,7 +23,7 @@ content-type: application/json
 
 
 ### Updating the added resource
-PUT https://cse341-fetp.onrender.com/playlists/67a43c103f04a11140235598 HTTP/1.1
+PUT https://cse341-project-yrv7.onrender.com/playlists/67a43c103f04a11140235598 HTTP/1.1
 content-type: application/json
 
 {
@@ -33,4 +33,4 @@ content-type: application/json
 }
 
 ### DELETE the added resource
-DELETE https://cse341-fetp.onrender.com/playlists/67a43c103f04a11140235598 HTTP/1.1
+DELETE https://cse341-project-yrv7.onrender.com/playlists/67a43c103f04a11140235598 HTTP/1.1

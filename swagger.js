@@ -5,7 +5,7 @@ const doc = {
     title: 'WatchList Movies API',
     description: 'WatchList Movies API Information',
   },
-  host: 'cse341-fetp.onrender.com'
+  host: 'cse341-project-yrv7.onrender.com'
 };
 
 const outputFile = './swagger-output.json';
