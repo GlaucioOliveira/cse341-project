@@ -8,7 +8,7 @@
   "host": "cse341-project-yrv7.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/playlists/": {
