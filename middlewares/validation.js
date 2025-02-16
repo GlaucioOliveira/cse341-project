@@ -4,7 +4,7 @@ const savePlaylist = async (req, res, next) => {
     const validationRule = {
         name: "required|string",
         type: "required|string",
-        owner: "required|email",
+        owner: "required|string",
     };
 
     await validator(req.body, validationRule, {}, (err, status) => {

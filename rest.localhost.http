@@ -4,7 +4,7 @@ GET http://localhost:8080/playlists
 ###
 
 ### Get playlist by id
-GET http://localhost:8080/playlists/67a43c103f04a11140235598
+GET http://localhost:8080/playlists/67a440a73f04a11140235599
 
 ###
 
@@ -23,7 +23,7 @@ content-type: application/json
 
 
 ### Updating the added resource
-PUT http://localhost:8080/playlists/67a43c103f04a11140235598 HTTP/1.1
+PUT http://localhost:8080/playlists/67b16d1bb2f8efd0df823984 HTTP/1.1
 content-type: application/json
 
 {
@@ -33,4 +33,4 @@ content-type: application/json
 }
 
 ### DELETE the added resource
-DELETE http://localhost:8080/playlists/67a43c103f04a11140235598 HTTP/1.1
+DELETE http://localhost:8080/playlists/67b16d1bb2f8efd0df823984 HTTP/1.1

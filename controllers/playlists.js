@@ -6,15 +6,16 @@ const mongoCollection = () => {
 };
 
 const getAll = async (req, res) => {
-  const result = await mongoCollection().find();
-  result.toArray((err, lists) => {
-    if(err){
-      res.status(400).json({message: err});
-    }
-    
+  try{
+    const result = await mongoCollection().find();
+    const resultArray = await result.toArray();
+
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(lists);
-});
+    res.status(200).json(resultArray);
+
+  } catch (err) {
+    res.status(400).json({message: err.message});
+  }
 };
 
 const getById = async (req, res) => {
@@ -23,16 +24,17 @@ const getById = async (req, res) => {
       res.status(400).json("Must use a valid id to get a playlist.");
     }
 
-  const playlistId = new ObjectId(req.params.id);
-  const result = await mongoCollection().find({ _id: playlistId });
-  result.toArray((err, result) => {
-    if(err){
-      res.status(400).json({message: err});
-    }
+  try{
+    const playlistId = new ObjectId(req.params.id);
+    const result = await mongoCollection().find({ _id: playlistId });
+    const resultArray = await result.toArray();
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(result[0]);
-  });
+    res.status(200).json(resultArray[0]);
+  }
+  catch (err){
+    res.status(400).json({message: err.message});
+  }
 };
 
 const create = async (req, res) => {
@@ -41,15 +43,6 @@ const create = async (req, res) => {
     type: req.body.type,
     owner: req.body.owner
   };
-
-  if (
-    !playlist.name ||
-    !playlist.type ||
-    !playlist.owner
-  ) {
-    res.status(400).json('Please provide all required fields.');
-    return;
-  }
 
   const dbResponse = await mongoCollection().insertOne(playlist);
   if (dbResponse.acknowledged) {
