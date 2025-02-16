@@ -44,13 +44,18 @@ const create = async (req, res) => {
     owner: req.body.owner
   };
 
-  const dbResponse = await mongoCollection().insertOne(playlist);
-  if (dbResponse.acknowledged) {
-    res.status(201).json(dbResponse);
-  } else {
-    res
-      .status(500)
-      .json(dbResponse.error || 'Some error occurred while creating the playlist.');
+  try{
+    const dbResponse = await mongoCollection().insertOne(playlist);
+    if (dbResponse.acknowledged) {
+      res.status(201).json(dbResponse);
+    } else {
+      res
+        .status(500)
+        .json(dbResponse.error || 'Some error occurred while creating the playlist.');
+    }
+  }
+  catch (err){
+    res.status(400).json({message: err.message});
   }
 };
 
@@ -67,14 +72,20 @@ const update = async (req, res) => {
     type: req.body.type,
     owner: req.body.owner
   };
-  const dbResponse = await mongoCollection().replaceOne({ _id: playlistId }, playlist);
-  console.log(dbResponse);
-  if (dbResponse.modifiedCount > 0) {
-    res.status(204).send();
-  } else {
-    res
-      .status(500)
-      .json(dbResponse.error || 'Some error occurred while updating the playlist.');
+
+  try{
+    const dbResponse = await mongoCollection().replaceOne({ _id: playlistId }, playlist);
+    console.log(dbResponse);
+    if (dbResponse.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      res
+        .status(500)
+        .json(dbResponse.error || 'Some error occurred while updating the playlist.');
+    }
+  }
+  catch (err){
+    res.status(400).json({message: err.message});
   }
 };
 
@@ -85,22 +96,28 @@ const deleteOne = async (req, res) => {
     }
   const playlistId = new ObjectId(req.params.id);
 
-  const dbResponse = await mongoCollection().deleteOne(
-    {
-      _id: playlistId
-    },
-    true
-  );
-
-  console.log(dbResponse);
-
-  if (dbResponse.deletedCount > 0) {
-    res.status(200).send();
-  } else {
-    res
-      .status(500)
-      .json(dbResponse.error || 'Some error occurred while deleting the playlist.');
+  try{
+    const dbResponse = await mongoCollection().deleteOne(
+      {
+        _id: playlistId
+      },
+      true
+    );
+  
+    console.log(dbResponse);
+  
+    if (dbResponse.deletedCount > 0) {
+      res.status(200).send();
+    } else {
+      res
+        .status(500)
+        .json(dbResponse.error || 'Some error occurred while deleting the playlist.');
+    }
   }
+  catch (err){
+    res.status(400).json({message: err.message});
+  }
+  
 };
 
 module.exports = { getAll, getById, create, update, deleteOne };
