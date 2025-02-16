@@ -5,28 +5,41 @@ const mongoCollection = () => {
   return mongodb.getDatabaseClient().db().collection('playlist');
 };
 
-const getAll = async (request, response) => {
+const getAll = async (req, res) => {
   const result = await mongoCollection().find();
-  result.toArray().then((lists) => {
-    response.setHeader('Content-Type', 'application/json');
-    response.status(200).json(lists);
-  });
+  result.toArray((err, lists) => {
+    if(err){
+      res.status(400).json({message: err});
+    }
+    
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(lists);
+});
 };
 
-const getById = async (request, response) => {
-  const playlistId = new ObjectId(request.params.id);
+const getById = async (req, res) => {
+  if(!ObjectId.isValid(req.params.id))
+    {
+      res.status(400).json("Must use a valid id to get a playlist.");
+    }
+
+  const playlistId = new ObjectId(req.params.id);
   const result = await mongoCollection().find({ _id: playlistId });
-  result.toArray().then((lists) => {
-    response.setHeader('Content-Type', 'application/json');
-    response.status(200).json(lists[0]);
+  result.toArray((err, result) => {
+    if(err){
+      res.status(400).json({message: err});
+    }
+
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(result[0]);
   });
 };
 
-const create = async (request, response) => {
+const create = async (req, res) => {
   const playlist = {
-    name: request.body.name,
-    type: request.body.type,
-    owner: request.body.owner
+    name: req.body.name,
+    type: req.body.type,
+    owner: req.body.owner
   };
 
   if (
@@ -34,41 +47,50 @@ const create = async (request, response) => {
     !playlist.type ||
     !playlist.owner
   ) {
-    response.status(400).json('Please provide all required fields.');
+    res.status(400).json('Please provide all required fields.');
     return;
   }
 
   const dbResponse = await mongoCollection().insertOne(playlist);
   if (dbResponse.acknowledged) {
-    response.status(201).json(dbResponse);
+    res.status(201).json(dbResponse);
   } else {
-    response
+    res
       .status(500)
       .json(dbResponse.error || 'Some error occurred while creating the playlist.');
   }
 };
 
-const update = async (request, response) => {
-  const playlistId = new ObjectId(request.params.id);
+const update = async (req, res) => {
+  if(!ObjectId.isValid(req.params.id))
+    {
+      res.status(400).json("Must use a valid id to update a playlist.");
+    }
+
+  const playlistId = new ObjectId(req.params.id);
 
   const playlist = {
-    name: request.body.name,
-    type: request.body.type,
-    owner: request.body.owner
+    name: req.body.name,
+    type: req.body.type,
+    owner: req.body.owner
   };
   const dbResponse = await mongoCollection().replaceOne({ _id: playlistId }, playlist);
   console.log(dbResponse);
   if (dbResponse.modifiedCount > 0) {
-    response.status(204).send();
+    res.status(204).send();
   } else {
-    response
+    res
       .status(500)
       .json(dbResponse.error || 'Some error occurred while updating the playlist.');
   }
 };
 
-const deleteOne = async (request, response) => {
-  const playlistId = new ObjectId(request.params.id);
+const deleteOne = async (req, res) => {
+  if(!ObjectId.isValid(req.params.id))
+    {
+      res.status(400).json("Must use a valid id to delete a playlist.");
+    }
+  const playlistId = new ObjectId(req.params.id);
 
   const dbResponse = await mongoCollection().deleteOne(
     {
@@ -80,9 +102,9 @@ const deleteOne = async (request, response) => {
   console.log(dbResponse);
 
   if (dbResponse.deletedCount > 0) {
-    response.status(200).send();
+    res.status(200).send();
   } else {
-    response
+    res
       .status(500)
       .json(dbResponse.error || 'Some error occurred while deleting the playlist.');
   }

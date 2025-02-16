@@ -5,7 +5,10 @@ const doc = {
     title: 'WatchList Movies API',
     description: 'WatchList Movies API Information',
   },
-  host: 'cse341-project-yrv7.onrender.com'
+  host: 'cse341-project-yrv7.onrender.com',
+  "schemes": [
+    "https"
+  ],
 };
 
 const outputFile = './swagger-output.json';

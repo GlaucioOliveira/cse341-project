@@ -19,6 +19,11 @@ app
   })
   .use('/', require('./routes'));
 
+  
+process.on('uncaughtException', (err, origin) => {
+  console.log(process.stderr, `Unhandled Exception: ${err}. Origin: ${origin}`)
+});
+
 dbClient.initializeDatabaseClient((error) => {
   if (error) {
     console.log(error);
