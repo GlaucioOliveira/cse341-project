@@ -34,3 +34,22 @@ content-type: application/json
 
 ### DELETE the added resource
 DELETE http://localhost:8080/playlists/67b17c587a4bd73a829458fa HTTP/1.1
+
+
+###
+
+### Add a move to  a playlist
+# @name create_resource
+POST http://localhost:8080/playlists/67a44181b1ec67af7b363fe4/movies/67a43b373f04a11140235597 HTTP/1.1
+content-type: application/json
+
+
+###
+
+### Remove a move to  a playlist
+# @name create_resource
+DELETE http://localhost:8080/playlists/67a440a73f04a11140235599/movies/67a43b373f04a11140235597 HTTP/1.1
+content-type: application/json
+
+
+###

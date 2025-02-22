@@ -41,7 +41,8 @@ const create = async (req, res) => {
   const playlist = {
     name: req.body.name,
     type: req.body.type,
-    owner: req.body.owner
+    owner: req.body.owner,
+    movies: req.body.movies || []
   };
 
   try{
