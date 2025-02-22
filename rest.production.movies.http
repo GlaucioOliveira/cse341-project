@@ -1,0 +1,36 @@
+### List all movies
+GET https://cse341-project-yrv7.onrender.com/movies
+
+###
+
+### Get movie by id
+GET https://cse341-project-yrv7.onrender.com/movies/67a440a73f04a11140235599
+
+###
+
+### Create a new movie
+# @name create_resource
+POST https://cse341-project-yrv7.onrender.com/movies HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Comedy Series - 2000-2010",
+    "type":"series",
+    "owner":"Glaucio"
+}
+
+###
+
+
+### Updating the added resource
+PUT https://cse341-project-yrv7.onrender.com/movies/67a440a73f04a11140235599 HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Best Brazilian Movies - 2000-2020",
+    "type":"movies",
+    "owner":"Melissa"
+}
+
+### DELETE the added resource
+DELETE https://cse341-project-yrv7.onrender.com/movies/67a440a73f04a11140235599 HTTP/1.1
