@@ -21,7 +21,7 @@ app
 
   
 process.on('uncaughtException', (err, origin) => {
-  console.log(process.stderr, `Unhandled Exception: ${err}. Origin: ${origin}`)
+  console.log(process.stderr, `Unhandled Exception: ${err}. Source: ${origin}`)
 });
 
 dbClient.initializeDatabaseClient((error) => {
