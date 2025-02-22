@@ -23,7 +23,28 @@ const savePlaylist = async (req, res, next) => {
 
 const saveMovie = async (req, res, next) => {
     const validationRule = {
-        name: "required|string"
+        Title: "required|string",
+        Year: "required|digits:4"
+    };
+
+    await validator(req.body, validationRule, {}, (err, status) => {
+        if (!status) {
+            res.status(412)
+                .send({
+                    success: false,
+                    message: 'Validation failed',
+                    data: err
+                });
+        } else {
+            next();
+        }
+    }).catch( err => console.log(err))
+}
+
+const updateMovie = async (req, res, next) => {
+    const validationRule = {
+        Title: "string",
+        Year: "digits:4"
     };
 
     await validator(req.body, validationRule, {}, (err, status) => {
@@ -41,5 +62,5 @@ const saveMovie = async (req, res, next) => {
 }
 
 module.exports = {
-    savePlaylist, saveMovie
+    savePlaylist, saveMovie, updateMovie
 };

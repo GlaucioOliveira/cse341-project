@@ -39,7 +39,28 @@ const getById = async (req, res) => {
 
 const create = async (req, res) => {
   const movie = {
-    name: req.body.name
+    Title: req.body.Title,
+    Year: req.body.Year,
+    Rated: req.body.Rated,
+    Released: req.body.Released,
+    Runtime: req.body.Runtime,
+    Genre: req.body.Genre,
+    Director: req.body.Director,
+    Writer: req.body.Writer,
+    Actors: req.body.Actors,
+    Plot: req.body.Plot,
+    Language: req.body.Language,
+    Country: req.body.Country,
+    Awards: req.body.Awards,
+    Poster: req.body.Poster,
+    Ratings: req.body.Ratings,
+    Metascore: req.body.Metascore,
+    imdbRating: req.body.imdbRating,
+    imdbVotes: req.body.imdbVotes,
+    imdbID: req.body.imdbID,
+    Type: req.body.Type,
+    totalSeasons: req.body.totalSeasons,
+    Response: req.body.Response
   };
 
   try{
@@ -65,12 +86,19 @@ const update = async (req, res) => {
 
   const movieId = new ObjectId(req.params.id);
 
-  const movie = {
-    name: req.body.name
-  };
+  const movieToUpdate = await mongoCollection().findOne({ _id: movieId });
+
+  if (!movieToUpdate) {
+    return res.status(404).json({ message: "Movie not found." });
+  }
+
+    // Update only the provided properties
+    const updatedMovie = { ...movieToUpdate, ...req.body };
+
+
 
   try{
-    const dbResponse = await mongoCollection().replaceOne({ _id: movieId }, movie);
+    const dbResponse = await mongoCollection().replaceOne({ _id: movieId }, updatedMovie);
     console.log(dbResponse);
     if (dbResponse.modifiedCount > 0) {
       res.status(204).send();

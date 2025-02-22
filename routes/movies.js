@@ -9,7 +9,7 @@ router.get('/:id', moviesController.getById);
 
 router.post('/', validation.saveMovie, moviesController.create);
 
-router.put('/:id', validation.saveMovie, moviesController.update);
+router.put('/:id', validation.updateMovie, moviesController.update);
 
 router.delete('/:id', moviesController.deleteOne);
 
