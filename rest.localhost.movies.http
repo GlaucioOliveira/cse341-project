@@ -4,7 +4,7 @@ GET http://localhost:8080/movies
 ###
 
 ### Get movie by id
-GET http://localhost:8080/movies/67ba55ff365d6ce89bffff59
+GET http://localhost:8080/movies/67ba57848139fb27ccc4c9ba
 
 ###
 
@@ -39,20 +39,20 @@ content-type: application/json
   "imdbVotes": "215",
   "imdbID": "tt0106062",
   "Type": "series",
-  "totalSeasons": "N/A",
-  "Response": "True"
+  "totalSeasons": "N/A"
 }
 
 ###
 
 
 ### Updating the added resource
-PUT http://localhost:8080/movies/67ba55ff365d6ce89bffff59 HTTP/1.1
+PUT http://localhost:8080/movies/67ba57848139fb27ccc4c9ba HTTP/1.1
 content-type: application/json
 
 {
-    "Title":"Matrix 1"
+    "Title":"Matrix 1",
+    "Year":"1992"
 }
 
 ### DELETE the added resource
-DELETE http://localhost:8080/movies/67b17c587a4bd73a829458fa HTTP/1.1
+DELETE http://localhost:8080/movies/67ba57848139fb27ccc4c9ba HTTP/1.1

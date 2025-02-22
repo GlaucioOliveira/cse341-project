@@ -24,7 +24,27 @@ const savePlaylist = async (req, res, next) => {
 const saveMovie = async (req, res, next) => {
     const validationRule = {
         Title: "required|string",
-        Year: "required|digits:4"
+        Year: "required|digits:4",
+        Rated: "string",
+        Released: "string",
+        Runtime: "string",
+        Genre: "string",
+        Director: "string",
+        Writer: "string",
+        Actors: "string",
+        Plot: "string",
+        Language: "string",
+        Country: "string",
+        Awards: "string",
+        Poster: "url",
+        "Ratings.*.Source": "string",
+        "Ratings.*.Value": "string",
+        Metascore: "string",
+        imdbRating: "string",
+        imdbVotes: "string",
+        imdbID: "string",
+        Type: "string",
+        totalSeasons: "string",
     };
 
     await validator(req.body, validationRule, {}, (err, status) => {
@@ -44,7 +64,27 @@ const saveMovie = async (req, res, next) => {
 const updateMovie = async (req, res, next) => {
     const validationRule = {
         Title: "string",
-        Year: "digits:4"
+        Year: "digits:4",
+        Rated: "string",
+        Released: "string",
+        Runtime: "string",
+        Genre: "string",
+        Director: "string",
+        Writer: "string",
+        Actors: "string",
+        Plot: "string",
+        Language: "string",
+        Country: "string",
+        Awards: "string",
+        Poster: "url",
+        "Ratings.*.Source": "string",
+        "Ratings.*.Value": "string",
+        Metascore: "string",
+        imdbRating: "string",
+        imdbVotes: "string",
+        imdbID: "string",
+        Type: "string",
+        totalSeasons: "string",
     };
 
     await validator(req.body, validationRule, {}, (err, status) => {

@@ -59,8 +59,7 @@ const create = async (req, res) => {
     imdbVotes: req.body.imdbVotes,
     imdbID: req.body.imdbID,
     Type: req.body.Type,
-    totalSeasons: req.body.totalSeasons,
-    Response: req.body.Response
+    totalSeasons: req.body.totalSeasons
   };
 
   try{
@@ -94,8 +93,6 @@ const update = async (req, res) => {
 
     // Update only the provided properties
     const updatedMovie = { ...movieToUpdate, ...req.body };
-
-
 
   try{
     const dbResponse = await mongoCollection().replaceOne({ _id: movieId }, updatedMovie);
