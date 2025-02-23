@@ -31,9 +31,8 @@ const create = async (req, res) => {
       return res.status(404).json({ message: "Movie not found." });
     }
 
-    // Format the movie object for the playlist (excluding _id)
     const movieData = {
-      movieId: movie._id, // Keep reference to movie
+      movieId: movie._id,
       Title: movie.Title,
       Year: movie.Year,
       Runtime: movie.Runtime,
@@ -78,7 +77,6 @@ const deleteOne = async (req, res) => {
     const playlists = mongoCollection("playlist");
     const movies = mongoCollection("movie");
     
-    // Check if the movie exists
     const movie = await movies.findOne({ _id: new ObjectId(movieId) });
     if (!movie) {
       return res.status(404).json({ message: "Movie not found." });
