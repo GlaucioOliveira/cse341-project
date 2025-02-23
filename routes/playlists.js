@@ -5,7 +5,7 @@ const playlistsController = require('../controllers/playlists');
 const playlistsMoviesController = require('../controllers/playlistsMovies');
 const { requiresAuth } = require('express-openid-connect');
 
-router.get('/', playlistsController.getAll);
+router.get('/', requiresAuth(), playlistsController.getAll);
 
 router.get('/:id', playlistsController.getById);
 
