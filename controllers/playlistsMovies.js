@@ -75,9 +75,6 @@ const deleteOne = async (req, res) => {
     }    
 
   try{
-
-
-
     const playlists = mongoCollection("playlist");
     const movies = mongoCollection("movie");
     
@@ -90,7 +87,7 @@ const deleteOne = async (req, res) => {
     // Remove movie from playlist
     await playlists.updateOne(
       { _id: new ObjectId(playlistId) },
-      { $pull: { movies: new ObjectId(movieId) } } // Removes movie from the array
+      { $pull: { movies: {movieId: new ObjectId(movieId) } } } // Removes movie from the array
     );
 
   
