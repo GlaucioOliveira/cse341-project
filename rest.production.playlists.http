@@ -34,3 +34,21 @@ content-type: application/json
 
 ### DELETE the added resource
 DELETE https://cse341-project-yrv7.onrender.com/playlists/67a440a73f04a11140235599 HTTP/1.1
+
+###
+
+### Add a movie to a playlist
+# @name create_resource
+POST https://cse341-project-yrv7.onrender.com/playlists/67ba645dd4ec602e9fee000d/movies/67a43b373f04a11140235597 HTTP/1.1
+content-type: application/json
+
+
+###
+
+### Remove a movie to a playlist
+# @name create_resource
+DELETE https://cse341-project-yrv7.onrender.com/playlists/67ba645dd4ec602e9fee000d/movies/67a43b373f04a11140235597 HTTP/1.1
+content-type: application/json
+
+
+###
