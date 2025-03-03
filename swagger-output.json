@@ -5,11 +5,23 @@
     "description": "WatchList Movies API Information",
     "version": "1.0.0"
   },
-  "host": "cse341-project-yrv7.onrender.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
+  "securityDefinitions": {
+    "OAuth2": {
+      "type": "oauth2",
+      "description": "OAuth2 authentication using Auth0",
+      "flow": "accessCode",
+      "authorizationUrl": "https://dev-2ksmol8sfp1zk1dy.us.auth0.com/authorize",
+      "tokenUrl": "https://dev-2ksmol8sfp1zk1dy.us.auth0.com/oauth/token",
+      "scopes": {
+        "write": "Write access"
+      }
+    }
+  },
   "paths": {
     "/profile": {
       "get": {
@@ -411,5 +423,12 @@
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "OAuth2": [
+        "write"
+      ]
+    }
+  ]
 }
