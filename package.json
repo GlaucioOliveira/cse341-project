@@ -1,15 +1,17 @@
 {
-  "name": "WatchList Movies",
+  "name": "watchList movies",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "nodemon dist/server.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "swagger": "node ./swagger.js"
+    "swagger": "node ./dist/swagger.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,11 +25,16 @@
     "validatorjs": "^3.22.1"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.9",
+    "@types/swagger-ui-express": "^4.1.8",
+    "@types/validatorjs": "^3.15.5",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "nodemon": "^3.1.9",
     "prettier": "^3.4.2",
-    "swagger-autogen": "^2.23.7"
+    "swagger-autogen": "^2.23.7",
+    "typescript": "^5.8.2"
   }
 }

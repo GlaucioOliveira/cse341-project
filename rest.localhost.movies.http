@@ -4,7 +4,7 @@ GET http://localhost:8080/movies
 ###
 
 ### Get movie by id
-GET http://localhost:8080/movies/67ba57848139fb27ccc4c9ba
+GET http://localhost:8080/movies/67a43b373f04a11140235597
 
 ###
 

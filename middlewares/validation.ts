@@ -1,13 +1,13 @@
 const validator = require('../helpers/validate.js');
 
-const savePlaylist = async (req, res, next) => {
+const savePlaylist = async (req: any, res: any, next: any) => {
     const validationRule = {
         name: "required|string",
         type: "required|string",
         owner: "required|string",
     };
 
-    await validator(req.body, validationRule, {}, (err, status) => {
+    await validator(req.body, validationRule, {}, (err: any, status: any) => {
         if (!status) {
             res.status(412)
                 .send({
@@ -18,10 +18,10 @@ const savePlaylist = async (req, res, next) => {
         } else {
             next();
         }
-    }).catch( err => console.log(err))
+    }).catch( (err: any) => console.log(err))
 }
 
-const saveMovie = async (req, res, next) => {
+const saveMovie = async (req: any, res: any, next: any) => {
     const validationRule = {
         Title: "required|string",
         Year: "required|digits:4",
@@ -47,7 +47,7 @@ const saveMovie = async (req, res, next) => {
         totalSeasons: "string",
     };
 
-    await validator(req.body, validationRule, {}, (err, status) => {
+    await validator(req.body, validationRule, {}, (err: any, status: any) => {
         if (!status) {
             res.status(412)
                 .send({
@@ -58,10 +58,10 @@ const saveMovie = async (req, res, next) => {
         } else {
             next();
         }
-    }).catch( err => console.log(err))
+    }).catch( (err: any) => console.log(err))
 }
 
-const updateMovie = async (req, res, next) => {
+const updateMovie = async (req: any, res: any, next: any) => {
     const validationRule = {
         Title: "string",
         Year: "digits:4",
@@ -87,7 +87,7 @@ const updateMovie = async (req, res, next) => {
         totalSeasons: "string",
     };
 
-    await validator(req.body, validationRule, {}, (err, status) => {
+    await validator(req.body, validationRule, {}, (err: any, status: any) => {
         if (!status) {
             res.status(412)
                 .send({
@@ -98,9 +98,7 @@ const updateMovie = async (req, res, next) => {
         } else {
             next();
         }
-    }).catch( err => console.log(err))
+    }).catch( (err: any) => console.log(err))
 }
 
-module.exports = {
-    savePlaylist, saveMovie, updateMovie
-};
+export default {savePlaylist, saveMovie, updateMovie};
