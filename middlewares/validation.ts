@@ -1,4 +1,4 @@
-const validator = require('../helpers/validate.js');
+import {validator} from '../helpers/validate.js';
 
 const savePlaylist = async (req: any, res: any, next: any) => {
     const validationRule = {
@@ -9,7 +9,7 @@ const savePlaylist = async (req: any, res: any, next: any) => {
 
     await validator(req.body, validationRule, {}, (err: any, status: any) => {
         if (!status) {
-            res.status(412)
+            return res.status(412)
                 .send({
                     success: false,
                     message: 'Validation failed',
@@ -49,7 +49,7 @@ const saveMovie = async (req: any, res: any, next: any) => {
 
     await validator(req.body, validationRule, {}, (err: any, status: any) => {
         if (!status) {
-            res.status(412)
+            return res.status(412)
                 .send({
                     success: false,
                     message: 'Validation failed',
@@ -65,31 +65,12 @@ const updateMovie = async (req: any, res: any, next: any) => {
     const validationRule = {
         Title: "string",
         Year: "digits:4",
-        Rated: "string",
-        Released: "string",
-        Runtime: "string",
         Genre: "string",
-        Director: "string",
-        Writer: "string",
-        Actors: "string",
-        Plot: "string",
-        Language: "string",
-        Country: "string",
-        Awards: "string",
-        Poster: "url",
-        "Ratings.*.Source": "string",
-        "Ratings.*.Value": "string",
-        Metascore: "string",
-        imdbRating: "string",
-        imdbVotes: "string",
-        imdbID: "string",
-        Type: "string",
-        totalSeasons: "string",
     };
 
     await validator(req.body, validationRule, {}, (err: any, status: any) => {
         if (!status) {
-            res.status(412)
+            return res.status(412)
                 .send({
                     success: false,
                     message: 'Validation failed',

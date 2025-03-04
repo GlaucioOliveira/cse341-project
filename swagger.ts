@@ -7,6 +7,7 @@ const doc = {
         title: 'WatchList Movies API',
         description: 'WatchList Movies API Information',
     },
+    //host: 'localhost:8080',
     host: 'cse341-project-yrv7.onrender.com',
     schemes: ['https'],
     securityDefinitions: {

@@ -6,15 +6,15 @@ const mongoCollection = () => {
   return mongodb.getDatabaseClient().db().collection('playlist');
 };
 
-export const getAll = async (req: Request, res: Response): Promise<void> => {
+export const getAll = async (req: Request, res: Response) => {
   try {
     const result = await mongoCollection().find();
     const resultArray = await result.toArray();
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(resultArray);
+    return res.status(200).json(resultArray);
   } catch (err: any) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 };
 
@@ -32,13 +32,13 @@ export const getById = async (req: Request, res: Response) => {
     }
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (err: any) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 };
 
-export const create = async (req: Request, res: Response): Promise<void> => {
+export const create = async (req: Request, res: Response) => {
   const playlist = {
     name: req.body.name,
     type: req.body.type,
@@ -49,12 +49,12 @@ export const create = async (req: Request, res: Response): Promise<void> => {
   try {
     const dbResponse = await mongoCollection().insertOne(playlist);
     if (dbResponse.acknowledged) {
-      res.status(201).json(dbResponse);
+      return res.status(201).json(dbResponse);
     } else {
-      res.status(500).json({ message: 'Some error occurred while creating the playlist.' });
+      return res.status(500).json({ message: 'Some error occurred while creating the playlist.' });
     }
   } catch (err: any) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 };
 
@@ -74,12 +74,12 @@ export const update = async (req: Request, res: Response) => {
   try {
     const dbResponse = await mongoCollection().replaceOne({ _id: playlistId }, playlist);
     if (dbResponse.modifiedCount > 0) {
-      res.status(204).send();
+      return res.status(204).send();
     } else {
-      res.status(500).json({ message: 'Some error occurred while updating the playlist.' });
+      return res.status(500).json({ message: 'Some error occurred while updating the playlist.' });
     }
   } catch (err: any) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 };
 
@@ -94,12 +94,12 @@ export const deleteOne = async (req: Request, res: Response) => {
     const dbResponse = await mongoCollection().deleteOne({ _id: playlistId });
 
     if (dbResponse.deletedCount > 0) {
-      res.status(200).send();
+      return res.status(200).send();
     } else {
-      res.status(500).json({ message: 'Some error occurred while deleting the playlist.' });
+      return res.status(500).json({ message: 'Some error occurred while deleting the playlist.' });
     }
   } catch (err: any) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 };
 

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import mongodb from '../db/client';
-import { ObjectId } from 'mongodb';
+import { ObjectId, UpdateFilter } from 'mongodb';
+import { Playlist } from '../models/playlist';
 
 // Helper function to get MongoDB collection
 const mongoCollection = (collectionName: string) => {
@@ -8,18 +9,16 @@ const mongoCollection = (collectionName: string) => {
 };
 
 // Add a movie to a playlist
-export const create = async (req: Request, res: Response): Promise<void> => {
+export const create = async (req: Request, res: Response) => {
   const { playlistId, movieId } = req.params;
 
   // Validate playlistId and movieId
   if (!ObjectId.isValid(playlistId)) {
-    res.status(400).json({ message: "Must use a valid id to a playlist." });
-    return;
+    return res.status(400).json({ message: "Must use a valid id to a playlist." });
   }
 
   if (!ObjectId.isValid(movieId)) {
-    res.status(400).json({ message: "Must use a valid id to a movie." });
-    return;
+    return res.status(400).json({ message: "Must use a valid id to a movie." });
   }
 
   try {
@@ -29,8 +28,7 @@ export const create = async (req: Request, res: Response): Promise<void> => {
     // Check if the movie exists
     const movie = await movies.findOne({ _id: new ObjectId(movieId) });
     if (!movie) {
-      res.status(404).json({ message: "Movie not found." });
-      return;
+      return res.status(404).json({ message: "Movie not found." });
     }
 
     const movieData = {
@@ -49,50 +47,48 @@ export const create = async (req: Request, res: Response): Promise<void> => {
     );
 
     if (dbResponse.acknowledged) {
-      res.status(201).json(dbResponse);
+      return res.status(201).json(dbResponse);
     } else {
-      res.status(500).json({ message: 'Some error occurred while adding a movie to the playlist.' });
+      return res.status(500).json({ message: 'Some error occurred while adding a movie to the playlist.' });
     }
   } catch (err: any) {
-    res.status(400).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
   }
 };
 
 // Remove a movie from a playlist
-export const deleteOne = async (req: Request, res: Response): Promise<void> => {
+export const deleteOne = async (req: Request, res: Response) => {
   const { playlistId, movieId } = req.params;
 
   // Validate playlistId and movieId
   if (!ObjectId.isValid(playlistId)) {
-    res.status(400).json({ message: "Must use a valid id to a playlist." });
-    return;
+    return res.status(400).json({ message: "Must use a valid id to a playlist." });
   }
 
   if (!ObjectId.isValid(movieId)) {
-    res.status(400).json({ message: "Must use a valid id to a movie." });
-    return;
+    return res.status(400).json({ message: "Must use a valid id to a movie." });
   }
 
   try {
-    const playlists = mongoCollection('playlist');
+    const playlists = mongodb.getDatabaseClient().db().collection<Playlist>('playlist');
     const movies = mongoCollection('movie');
 
     // Check if the movie exists
     const movie = await movies.findOne({ _id: new ObjectId(movieId) });
     if (!movie) {
-      res.status(404).json({ message: "Movie not found." });
-      return;
+      return res.status(404).json({ message: "Movie not found." });      
     }
 
     // Remove movie from playlist
     await playlists.updateOne(
       { _id: new ObjectId(playlistId) },
-      { pull: { movies: { movieId: new ObjectId(movieId) } } } // Removes movie from the array
+      { $pull: { movies: { movieId: new ObjectId(movieId) } } }
     );
 
-    res.status(200).json({ message: "Movie removed from playlist successfully." });
+    
+    return res.status(200).json({ message: "Movie removed from playlist successfully." });
   } catch (err: any) {
-    res.status(500).json({ message: "Error removing movie from playlist.", error: err.message });
+    return res.status(500).json({ message: "Error removing movie from playlist.", error: err.message });
   }
 };
 
